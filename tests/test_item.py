@@ -4,6 +4,8 @@ from src.item import Item
 
 
 @pytest.fixture
+
+
 def tv():
     return Item("tv", 10000, 2)
 
@@ -52,9 +54,11 @@ def test_string_to_number_static():
     """Преобразование строки в целое число"""
     assert Item.string_to_number("5.76") == 5
 
+
 def test_repr(tv):
     """Тест магии repr"""
     assert tv.__repr__() == "Item('tv', 10000, 2)"
+
 
 def test_str(tv):
     """Тест магии str"""
