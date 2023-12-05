@@ -40,7 +40,7 @@ def test_name_setter(tv):
 
 def test_instantiate_from_csv():
     """Достаем из csv объекты класса"""
-    Item.instantiate_from_csv('src/items.csv')
+    Item.instantiate_from_csv('src / items.csv')
 
     assert len(Item.all) == 5
     assert Item.all[0].name == "Смартфон"
