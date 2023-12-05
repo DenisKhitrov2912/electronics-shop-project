@@ -1,6 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
 from src.item import Item
+from src.phone import Phone
 
 
 @pytest.fixture
@@ -8,6 +9,12 @@ from src.item import Item
 
 def tv():
     return Item("tv", 10000, 2)
+
+@pytest.fixture
+
+
+def phone():
+    return Phone("Iphone 3000SuperMaxLastSecretSonOfSteveJobs", 1500000, 1, 2)
 
 
 def test_item_initialization(tv):
@@ -63,3 +70,9 @@ def test_repr(tv):
 def test_str(tv):
     """Тест магии str"""
     assert tv.__str__() == 'tv'
+
+
+def test_add(tv, phone):
+    """Тест магии add"""
+    assert tv.__add__(phone) == 3
+    assert tv.__add__(1) == "Складывать можно только объекты класса Item"

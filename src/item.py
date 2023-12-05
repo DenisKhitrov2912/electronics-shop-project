@@ -33,6 +33,14 @@ class Item:
         """Магия юзер - френдли"""
         return f'{self.__name}'
 
+
+    def __add__(self, other):
+        """Магия сложения с проверкой"""
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        return "Складывать можно только объекты класса Item"
+
+
     @property
 
 
