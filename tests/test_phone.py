@@ -60,6 +60,6 @@ def test_number_of_sim_setter(phone):
     with pytest.raises(ValueError):
         phone.number_of_sim = 8.5
     with pytest.raises(ValueError):
-        phone.number_of_sim = "abc"
+        phone.number_of_sim = "abcd"
     phone.number_of_sim = 1
     assert phone.number_of_sim == 1
