@@ -1,18 +1,15 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 
 
 @pytest.fixture
-
-
 def tv():
     return Item("tv", 10000, 2)
 
+
 @pytest.fixture
-
-
 def phone():
     return Phone("Iphone 3000SuperMaxLastSecretSonOfSteveJobs", 1500000, 1, 2)
 
@@ -55,6 +52,10 @@ def test_instantiate_from_csv():
     assert Item.all[0].name == "Смартфон"
     assert Item.all[1].price == 1000
     assert Item.all[4].quantity == 5
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv('src/ite.csv')
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv("src/item_del.csv")
 
 
 def test_string_to_number_static():
@@ -76,3 +77,17 @@ def test_add(tv, phone):
     """Тест магии add"""
     assert tv.__add__(phone) == 3
     assert tv.__add__(1) == "Складывать можно только объекты класса Item"
+
+
+def test_str_error():
+    """Тест магии str для класса ошибок"""
+    error = InstantiateCSVError('src/items.csv')
+    assert error.__str__() == 'src/items.csv'
+
+
+def test_init_error():
+    """Тест конструктора ошибок"""
+    error = InstantiateCSVError('src/items.csv')
+    assert error.message == 'src/items.csv'
+    error = InstantiateCSVError()
+    assert error.message == 'Файл items.csv поврежден'
