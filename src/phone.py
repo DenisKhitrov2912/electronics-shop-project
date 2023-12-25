@@ -23,20 +23,16 @@ class Phone(Item):
 
     def __add__(self, other):
         """Магия сложения с проверкой"""
-        if isinstance(other, Item):
-            return self.quantity + other.quantity
-        return "Складывать можно только объекты класса Item или дочернего Phone"
+        if not isinstance(other, Item):
+            raise TypeError("Складывать можно только объекты класса Item")
+        return self.quantity + other.quantity
 
     @property
-
-
     def number_of_sim(self):
         """Геттер числа симок"""
         return self.__sim_num
 
     @number_of_sim.setter
-
-
     def number_of_sim(self, num):
         """Сеттер числа симок"""
         if float(num) == int(num) and int(num) > 0:

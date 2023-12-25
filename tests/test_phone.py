@@ -2,16 +2,14 @@ import pytest
 from src.item import Item
 from src.phone import Phone
 
+
 # Фикстуры:
 @pytest.fixture
-
-
 def tv():
     return Item("tv", 10000, 2)
 
+
 @pytest.fixture
-
-
 def phone():
     return Phone("Iphone 3000SuperMaxLastSecretSonOfSteveJobs", 1500000, 1, 2)
 
@@ -42,24 +40,20 @@ def test_str(phone):
 
 def test_add(phone, tv):
     """Тест + """
-    assert phone.__add__(tv) == 3
-    assert phone.__add__(1) == "Складывать можно только объекты класса Item или дочернего Phone"
+    assert phone + tv == 3
+    with pytest.raises(TypeError):
+        phone + 3
 
 
-def test_number_of_sim_getter(phone):
-    """Тест геттера симок"""
+def test_number_of_sim(phone):
+    """Тест количества симок"""
     assert phone.number_of_sim == 2
-
-
-def test_number_of_sim_setter(phone):
-    """Тест сеттера симок"""
-    with pytest.raises(ValueError):
-        phone.number_of_sim = 0
-    with pytest.raises(ValueError):
-        phone.number_of_sim = - 1
-    with pytest.raises(ValueError):
-        phone.number_of_sim = 8.5
-    with pytest.raises(ValueError):
-        phone.number_of_sim = "abc"
     phone.number_of_sim = 1
     assert phone.number_of_sim == 1
+
+
+@pytest.mark.parametrize('invalid_sim_number', [0, -1, 8.5, 'abc'])
+def test_number_of_sim_setter(phone, invalid_sim_number):
+    """Тест ошибок"""
+    with pytest.raises(ValueError):
+        phone.number_of_sim = invalid_sim_number
