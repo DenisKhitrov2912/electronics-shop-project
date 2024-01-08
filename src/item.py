@@ -23,7 +23,7 @@ class Item:
     all = []
 
 
-    def _ _init__(self, name: str, price: float, quantity: int) -> None:
+    def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
 
